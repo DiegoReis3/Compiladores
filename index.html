@@ -14,10 +14,11 @@
 
             <!-- NAVBAR -->
             <div class="grid-navbar">
-                <div class="button">
-                    <input class="form-control inputClass" type="file" id="formFile">
+                <div class="file-upload">
+                    <input type="file" id="fileInput" accept=".txt"/>
+                    <button id="uploadButton" class="button">Escolher Arquivo</button>
                 </div>
-                <button class="button" onclick="lexico()">Analise Lexica</button>
+                <button id="buttonLexico" class="button" >Analise Lexica</button>
             </div>
             
             <!-- AREA CODIGO -->
@@ -34,6 +35,7 @@
                     </div>
                 </div>
             </div>
-          </div>
+
+        </div>
     </body>
 </html>

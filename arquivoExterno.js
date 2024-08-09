@@ -23,4 +23,30 @@ function readFile() {
 
     // Lê o conteúdo do arquivo como texto
     reader.readAsText(file);
+
+    document.getElementById("areaCodigo").value = reader;
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const uploadButton = document.getElementById('uploadButton');
+    const fileInput = document.getElementById('fileInput');
+    const fileContent = document.getElementById('areaCodigo');
+
+    uploadButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file && file.type === "text/plain") {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                fileContent.value = e.target.result;
+            };
+            reader.readAsText(file);
+        } else {
+            alert("Por favor, selecione um arquivo .txt");
+        }
+    });
+});
+
