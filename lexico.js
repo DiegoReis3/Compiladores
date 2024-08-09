@@ -1,23 +1,18 @@
 function lexico(){
-    
-    let data = [
-        ["Lexema1", "Token1", "Erro1", "Linha1", "Coluna Inicial1", "Coluna Final1"],
-        ["Lexema2", "Token2", "Erro2", "Linha2", "Coluna Inicial2", "Coluna Final2"],
-        ["Lexema3", "Token3", "Erro3", "Linha3", "Coluna Inicial3", "Coluna Final3"],
-        ["Lexema4", "Token4", "Erro4", "Linha4", "Coluna Inicial4", "Coluna Final4"],
-        ["Lexema5", "Token5", "Erro5", "Linha5", "Coluna Inicial5", "Coluna Final5"],
-        ["Lexema6", "Token6", "Erro6", "Linha6", "Coluna Inicial6", "Coluna Final6"],
-        ["Lexema7", "Token7", "Erro7", "Linha7", "Coluna Inicial7", "Coluna Final7"],
-        ["Lexema8", "Token8", "Erro8", "Linha8", "Coluna Inicial8", "Coluna Final8"],
-        ["Lexema9", "Token9", "Erro9", "Linha9", "Coluna Inicial9", "Coluna Final9"]
-    ];
-
+    //identifica todas as palavras presentes no codigo
     let words = document.getElementById("areaCodigo").value.split(/\s+/);
 
-    let tabela = generateTable(data);
+    words = words.filter(Boolean);
 
+    let resultado = [];
+
+    resultado = processarPalavras(words)
+
+    //gera a tabela com os dados
+    let tabela = generateTable(resultado);
+
+    //exibi a tabela na area de resultados
     document.getElementById('divcontainTabela').innerHTML = tabela;
-
 
     console.log(words)
 
@@ -32,9 +27,6 @@ function generateTable(data) {
                     <th>Lexema</th>
                     <th>Token</th>
                     <th>Erro</th>
-                    <th>Linha</th>
-                    <th>Coluna Inicial</th>
-                    <th>Coluna Final</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,12 +36,9 @@ function generateTable(data) {
     data.forEach(row => {
         tableHTML += `
             <tr>
-                <td>${row[0]}</td>
-                <td>${row[1]}</td>
-                <td>${row[2]}</td>
-                <td>${row[3]}</td>
-                <td>${row[4]}</td>
-                <td>${row[5]}</td>
+                <td>${row}</td>
+                <td>${verificaToken(row)}</td>
+                <td>${verificaAlfabeto(row)}</td>
             </tr>
         `;
     });
@@ -61,4 +50,82 @@ function generateTable(data) {
     return tableHTML;
 }
 
+// Adiciona o listener para o evento click quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    const botao = document.getElementById('buttonLexico');
+    botao.addEventListener('click', lexico);
+});
 
+
+
+// Define a tabela de palavras reservadas e seus nomes
+const tabelaPalavrasReservadas = [
+    { valor: "+",       nome: "simbolo_soma" },
+    { valor: "-",        nome: "simbolo_subtracao" },
+    { valor: "*",       nome: "simbolo_multiplicacao" },
+    { valor: "/",       nome: "simbolo_divisao" },
+
+    { valor: "var",       nome: "reservada_var" },
+    { valor: "begin",    nome: "reservada_begin" },
+    { valor: "end",    nome: "reservada_end" },
+    { valor: "read",     nome: "reservada_read" },
+    { valor: "write",      nome: "reservada_write" },
+
+    { valor: "int",          nome: "reservada_int" },
+    { valor: "float",      nome: "reservada_float" },
+    { valor: "string",        nome: "reservada_string" },
+
+    { valor: "(",        nome: "simbolo_abreParenteses" },
+    { valor: ")",      nome: "simbolo_fechaParenteses" },
+    { valor: ".",     nome: "simbolo_pontoFinal" },
+    { valor: ":",     nome: "simbolo_doisPontos" },
+    { valor: ";",         nome: "simbolo_pontoVirgula" },
+    { valor: ":=",    nome: "simbolo_atribuicao" },
+    { valor: ",",          nome: "simbolo_virgula" },
+];
+
+function verificaToken(data){
+    item = tabelaPalavrasReservadas.find(item => item.valor == data)
+
+    if (item == undefined) return "identificador";
+    else return item.nome;
+}
+
+function verificaAlfabeto(data) {
+    // Regex para validar nomes de variáveis e identificar caracteres específicos
+    const regexCombinado = /^([a-zA-Z_$][a-zA-Z_$0-9]{0,24})|([+\-*/)(.:;,=]*)$/;
+
+    // Testa a string com a expressão regular combinada
+    const resultado = data.match(regexCombinado);
+
+    if (resultado) {
+        // Se a string for válida como nome de variável, retorna "-"
+        if (resultado[0] === data) {
+            return "-";
+        } else {
+            // Se houver caracteres específicos após o nome de variável, retorna "caractere específico"
+            return "caractere específico";
+        }
+    } else {
+        return "erro";
+    }
+}
+
+function processarPalavras(words) {
+    const simbolosPermitidos = /[+\-/*():;:=,\.]/;
+    let resultado = [];
+    
+    words.forEach(palavra => {
+        // Verifica se a palavra contém caracteres não permitidos
+        const partes = palavra.split(/([+\-/*():;:=,\.])/);
+
+        partes.forEach(parte => {
+            // Se a parte for um símbolo permitido ou palavra, adiciona ao resultado
+            if (parte && (simbolosPermitidos.test(parte) || /[\w]+/.test(parte))) {
+                resultado.push(parte);
+            }
+        });
+    });
+
+    return resultado;
+}

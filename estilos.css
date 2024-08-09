@@ -118,5 +118,20 @@ html, body {
   .inputClass  {
     width: 100%;
     height: 100%;
-    font-size: 2px;
+    font-size-adjust: initial;
+  }
+
+  .file-upload {
+    position: relative;
+    display: flex;
+  }
+
+  #fileInput {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
   }
