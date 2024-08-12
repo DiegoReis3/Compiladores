@@ -11,6 +11,9 @@ function lexico(){
     //gera a tabela com os dados
     let tabela = generateTable(resultado);
 
+    //limpa area de resultados
+    document.getElementById('divcontainTabela').innerHTML = ""
+
     //exibi a tabela na area de resultados
     document.getElementById('divcontainTabela').innerHTML = tabela;
 
@@ -34,14 +37,15 @@ function generateTable(data) {
 
     // Adiciona as linhas de dados
     data.forEach(row => {
-        const erro = verificaAlfabeto(row);
+        const token = verificaToken(row)
+        const erro = verificaAlfabeto(row, token);
         // Adiciona uma classe especial se houver erro
-        const rowClass = erro === "erro" ? "class='table-danger'" : "";
+        const rowClass = erro != "-" ? "class='table-danger'" : "";
 
         tableHTML += `
             <tr ${rowClass}>
                 <td>${row}</td>
-                <td>${verificaToken(row)}</td>
+                <td>${token}</td>
                 <td>${erro}</td>
             </tr>
         `;
@@ -76,6 +80,7 @@ const tabelaPalavrasReservadas = [
     { valor: "end",    nome: "reservada_end" },
     { valor: "read",     nome: "reservada_read" },
     { valor: "write",      nome: "reservada_write" },
+    { valor: "program",      nome: "reservada_program" },
 
     { valor: "int",          nome: "reservada_int" },
     { valor: "float",      nome: "reservada_float" },
@@ -108,11 +113,12 @@ function verificaToken(data){
     else return item.nome;
 }
 
-function verificaAlfabeto(data) {
+function verificaAlfabeto(data, token) {
     // Regex para validar nomes de variáveis, números e caracteres específicos
     const regexIdentificador = /^[a-zA-Z_$][a-zA-Z_$0-9]{0,24}$/;
     const regexNumero = /^[0-9]+(\.[0-9]+)?$/; // Regex para números inteiros e de ponto flutuante
     const regexSimbolos = /^[+\-*/)(.:;,=]+$/;
+    const regexLetras = /^[a-zA-Z_$0-9+\-*/)(.:;,=]$/
 
     // Verifica se é um identificador válido
     if (regexIdentificador.test(data)) {
@@ -128,7 +134,13 @@ function verificaAlfabeto(data) {
     }
     // Se não é nenhum dos anteriores, é um erro
     else {
-        return "erro";
+        for (let index = 0; index < data.length; index++) {
+            let char = data.charAt(index)
+            if(!regexLetras.test(char) || (token=="identificador" && index==0 && regexNumero.test(char)))
+                return char
+        }
+
+        return "erro"
     }
 }
 
