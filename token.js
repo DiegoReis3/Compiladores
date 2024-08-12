@@ -10,6 +10,7 @@ const tabelaPalavrasReservadas = [
     { valor: "end",    nome: "reservada_end" },
     { valor: "read",     nome: "reservada_read" },
     { valor: "write",      nome: "reservada_write" },
+    { valor: "program",      nome: "reservada_program" },
 
     { valor: "int",          nome: "reservada_int" },
     { valor: "float",      nome: "reservada_float" },
@@ -22,6 +23,17 @@ const tabelaPalavrasReservadas = [
     { valor: ";",         nome: "simbolo_pontoVirgula" },
     { valor: ":=",    nome: "simbolo_atribuicao" },
     { valor: ",",          nome: "simbolo_virgula" },
+    
+    { valor: "1",          nome: "numero_inteiro" },
+    { valor: "2",          nome: "numero_inteiro" },
+    { valor: "3",          nome: "numero_inteiro" },
+    { valor: "4",          nome: "numero_inteiro" },
+    { valor: "5",          nome: "numero_inteiro" },
+    { valor: "6",          nome: "numero_inteiro" },
+    { valor: "7",          nome: "numero_inteiro" },
+    { valor: "8",          nome: "numero_inteiro" },
+    { valor: "9",          nome: "numero_inteiro" },
+    { valor: "0",          nome: "numero_inteiro" },
 ];
 
 function verificaToken(data){
