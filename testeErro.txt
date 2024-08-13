@@ -1,0 +1,14 @@
+program quadrado;
+	var num, quad : int;
+	begin
+  	  read(num);
+  	  quad:=25.010*num;
+          25 25.5
+          25458787487457
+          454578.56
+          45.587952
+          erroooooooooooooooooooooooo
+  	  write(quad)
+	  abç
+          =
+	end.
