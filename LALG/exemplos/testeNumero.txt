@@ -1,0 +1,10 @@
+	program quadrado;
+	var num, quad : int;
+	begin
+  	  read(num);
+  	  quad := 2*num;
+  	  write(quad)
+	  abç
+	end.
+   
+  
