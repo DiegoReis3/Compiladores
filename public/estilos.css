@@ -96,7 +96,7 @@ html, body {
     width: 250%;
   }
   
-  .code {
+  .CodeMirror {
     height: 98%;
     width: 98%;
     padding: 12px 20px;
@@ -104,7 +104,6 @@ html, body {
     border-radius: 10px;
     background-color: darkgray;
     font-size: 16px;
-    color: black;
     resize: none;
   }
 

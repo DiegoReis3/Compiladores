@@ -1,7 +1,7 @@
 {
   "name": "compiladores-main",
   "version": "1.0.0",
-  "main": "arquivoExterno.js",
+  "main": "index.html",
   "scripts": {
     "start": "nodemon server.js",
     "start2": "node server.js",
@@ -11,9 +11,14 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "type":"module",
   "dependencies": {
     "antlr4": "^4.13.2",
+    "codemirror": "^6.0.1",
     "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
   }
 }

@@ -1,6 +1,9 @@
+
+
 function lexico(){
+
     //identifica todas as palavras presentes no codigo
-    let words = document.getElementById("areaCodigo").value.split(/\s+/);
+    let words = window.getCodeMirrorContent().split(/\s+/);
 
     words = words.filter(Boolean);
 
@@ -16,8 +19,6 @@ function lexico(){
 
     //exibi a tabela na area de resultados
     document.getElementById('divcontainTabela').innerHTML = tabela;
-
-    console.log(words)
 
 }
 
@@ -65,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const botao = document.getElementById('buttonLexico');
     botao.addEventListener('click', lexico);
 });
-
 
 
 // Define a tabela de palavras reservadas e seus nomes
