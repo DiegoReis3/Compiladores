@@ -26,5 +26,6 @@ app.post('/lexico', function(req, resp){
     const input = req.body.input;
     console.log("[server]: Requisição de Análise Léxica recebida, conteúdo:\n\n" + input);
     const output = lexicAnalisysGenerator(input);
-    resp.json({result: output});
+    console.log("[server]: Resultado da Análise Léxica:\n\n" + output);
+    resp.json(output);
 });
